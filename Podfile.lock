@@ -1,40 +1,29 @@
 PODS:
-  - AFNetworking (2.2.3):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-    - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.2.3):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.2.3):
-    - AFNetworking/NSURLConnection
-  - AFNetworking/Reachability (2.2.3)
-  - AFNetworking/Security (2.2.3)
-  - AFNetworking/Serialization (2.2.3)
-  - AFNetworking/UIKit (2.2.3):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
-  - Expecta (0.2.4)
+  - CMDQueryStringSerialization (0.2.0)
+  - Expecta (1.0.0)
+  - Nocilla (0.9.0)
   - OCMock (2.2.4)
-  - Specta (0.2.1)
-  - VENCore (1.0.0):
-    - AFNetworking
+  - Specta (1.0.0)
+  - SSKeychain (1.2.3)
+  - VENCore (3.1.1):
+    - CMDQueryStringSerialization (~> 0.2.0)
 
 DEPENDENCIES:
+  - CMDQueryStringSerialization (~> 0.2.0)
   - Expecta
-  - OCMock
+  - Nocilla
+  - OCMock (~> 2.2.4)
   - Specta
-  - VENCore
+  - SSKeychain (~> 1.2.3)
+  - VENCore (~> 3.1.1)
 
 SPEC CHECKSUMS:
-  AFNetworking: ae513199cca79e9d7af2708ccabe2ed075550c42
-  Expecta: 5c147dedfea5fbcf773995f7e65020abcc936ce5
-  OCMock: 5008fae4b4789b8fc3e48cd7660f2eb5ef8ce89e
-  Specta: 2d06220591110c6d9757d8be8ecf8e63aa40dc2a
-  VENCore: 0547812ee8af7555b8621c2c6cc3bc8f4d69d413
+  CMDQueryStringSerialization: 15f9004212bbc72533bb533f63df79d90a00a7d8
+  Expecta: 32604574add2c46a36f8d2f716b6c5736eb75024
+  Nocilla: d7d96e8a11e363f0d7c976d48b320c43d61fb471
+  OCMock: a6a7dc0e3997fb9f35d99f72528698ebf60d64f2
+  Specta: 96fe05fe5c7348b5223f85e862904f6e832abb14
+  SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
+  VENCore: fb44651f466971a2f3585b7e4e5a13c1641da9bf
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.39.0

@@ -7,8 +7,12 @@
 #import "VENTransaction+VenmoSDK.h"
 #import "VENRequestDecoder.h"
 
-@interface VENTransaction ()
+@interface VENUser (VENTransaction_VenmoSDK)
+@property (copy, nonatomic, readwrite) NSString *externalId;
+@end
 
+
+@interface VENTransaction ()
 @property (copy, nonatomic, readwrite) NSString *transactionID;
 @property (strong, nonatomic, readwrite) VENTransactionTarget *target;
 @property (copy, nonatomic, readwrite) NSString *note;
@@ -16,14 +20,8 @@
 @property (assign, nonatomic, readwrite) VENTransactionType transactionType;
 @property (assign, nonatomic, readwrite) VENTransactionStatus status;
 @property (assign, nonatomic, readwrite) VENTransactionAudience audience;
-
 @end
 
-@interface VENUser ()
-
-@property (copy, nonatomic, readwrite) NSString *externalId;
-
-@end
 
 @implementation VENTransaction (VenmoSDK)
 
@@ -32,7 +30,7 @@
         NSString *signedRequest = [[url queryDictionary] stringForKey:@"signed_request"];
         DLog(@"signedRequest: %@", signedRequest);
 
-        NSArray *decodedSignedRequest = [VENRequestDecoder decodeSignedRequest:signedRequest withClientSecret:[[Venmo sharedClient] appSecret]];
+        NSArray *decodedSignedRequest = [VENRequestDecoder decodeSignedRequest:signedRequest withClientSecret:[[Venmo sharedInstance] appSecret]];
         DLog(@"decodedSignedRequest: %@", decodedSignedRequest);
         return [VENTransaction transactionWithSignedRequestDictionary:decodedSignedRequest[0]];
     }
@@ -43,18 +41,18 @@
 }
 
 
-- (NSString *)amountString {
-    if (self.target.amount < 1) {
++ (NSString *)amountString:(NSUInteger)amount {
+    if (amount < 1) {
         return @"";
     }
-    CGFloat amount = self.target.amount / 100.0f;
-    NSString *amountStr = [NSString stringWithFormat:@"%.2f", amount];
+    CGFloat dollarAmount = amount / 100.0f;
+    NSString *amountStr = [NSString stringWithFormat:@"%.2f", dollarAmount];
     return amountStr;
 }
 
 
-- (NSString *)typeString {
-    if (self.transactionType == VENTransactionTypePay) {
++ (NSString *)typeString:(VENTransactionType)type {
+    if (type == VENTransactionTypePay) {
         return VENTransactionTypeStrings[VENTransactionTypePay];
     }
     else {
@@ -100,7 +98,6 @@
 
     NSString *actorUserID = cleanDictionary[@"actor_user_id"];
     VENUser *actor = [[VENUser alloc] init];
-    //TODO: is this an internal ID or an external ID?
     actor.externalId = actorUserID;
     transaction.actor = actor;
 
@@ -112,7 +109,6 @@
 
     BOOL success = [cleanDictionary[@"success"] boolValue];
     if (success) {
-    // TODO: the signed request should return the transaction status.
         transaction.status = VENTransactionStatusSettled;
     }
     else {
